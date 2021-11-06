@@ -1,6 +1,7 @@
 package io.ktln.lib.telegram
 
-class Updater
-    ()
+public final class Updater
+    (
+    )
 {
 }

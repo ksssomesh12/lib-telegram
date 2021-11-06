@@ -1,6 +1,7 @@
 package io.ktln.lib.telegram
 
-class Dispatcher
-    ()
+public final class Dispatcher
+    (
+    )
 {
 }

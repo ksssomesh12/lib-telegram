@@ -1,6 +1,7 @@
 package io.ktln.lib.telegram
 
-class Bot
-    ()
+public final class Bot
+    (
+    )
 {
 }

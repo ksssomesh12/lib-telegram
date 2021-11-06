@@ -1,4 +1,4 @@
-rootProject.name = "telegram-bot"
+rootProject.name = "telegram"
 buildCache {
     local {
         directory = File(rootDir, ".cache")

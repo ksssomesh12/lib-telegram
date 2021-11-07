@@ -55,7 +55,7 @@ public final class Bot
 
     private final suspend fun httpGet(
         endPoint: EndPoint,
-        payloadData: Map<String, Any?>? = null,
+        payloadData: Map<PayloadDataKey, Any?>? = null,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
     ): HttpResponse {
@@ -70,7 +70,7 @@ public final class Bot
 
     private final suspend fun httpPost(
         endPoint: EndPoint,
-        payloadData: Map<String, Any?>? = null,
+        payloadData: Map<PayloadDataKey, Any?>? = null,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
     ): HttpResponse {
@@ -91,9 +91,9 @@ public final class Bot
     }
 
     private final fun resolvePayloadData(
-        payloadData: Map<String, Any?>? = null
+        payloadData: Map<PayloadDataKey, Any?>? = null
     ): Map<String, Any?> {
-        return payloadData ?: emptyMap()
+        return payloadData?.mapKeys { it.key.value } ?: emptyMap()
     }
 
     // [Getting updates](https://core.telegram.org/bots/api#getting-updates)
@@ -152,10 +152,10 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.GetUpdates,
             payloadData = mapOf(
-                "timeout" to timeOut,
-                "offset" to offset,
-                "limit" to limit,
-                "allowed_updates" to allowedUpdates
+                PayloadDataKey.Timeout to timeOut,
+                PayloadDataKey.Offset to offset,
+                PayloadDataKey.Limit to limit,
+                PayloadDataKey.AllowedUpdates to allowedUpdates
             ),
             timeOut = readLatency + timeOut,
             apiKwArgs = apiKwArgs
@@ -235,12 +235,12 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SetWebhook,
             payloadData = mapOf(
-                "url" to url,
-                "certificate" to certificate,
-                "max_connections" to maxConnections,
-                "allowed_updates" to allowedUpdates,
-                "ip_address" to ipAddress,
-                "drop_pending_updates" to dropPendingUpdates
+                PayloadDataKey.Url to url,
+                PayloadDataKey.Certificate to certificate,
+                PayloadDataKey.MaxConnections to maxConnections,
+                PayloadDataKey.AllowedUpdates to allowedUpdates,
+                PayloadDataKey.IpAddress to ipAddress,
+                PayloadDataKey.DropPendingUpdates to dropPendingUpdates
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -275,7 +275,7 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.DeleteWebhook,
             payloadData = mapOf(
-                "drop_pending_updates" to dropPendingUpdates
+                PayloadDataKey.DropPendingUpdates to dropPendingUpdates
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -449,15 +449,15 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SendMessage,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "text" to text,
-                "parse_mode" to parseMode?.value,
-                "disable_web_page_preview" to disableWebPagePreview,
-                "disable_notification" to disableNotification,
-                "reply_to_message_id" to replyToMessageId,
-                "reply_markup" to replyMarkup,
-                "allow_sending_without_reply" to allowSendingWithoutReply,
-                "entities" to entities
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.Text to text,
+                PayloadDataKey.ParseMode to parseMode,
+                PayloadDataKey.DisableWebPagePreview to disableWebPagePreview,
+                PayloadDataKey.DisableNotification to disableNotification,
+                PayloadDataKey.ReplyToMessageId to replyToMessageId,
+                PayloadDataKey.ReplyMarkup to replyMarkup,
+                PayloadDataKey.AllowSendingWithoutReply to allowSendingWithoutReply,
+                PayloadDataKey.Entities to entities
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -499,10 +499,10 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.ForwardMessage,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "from_chat_id" to fromChatId,
-                "message_id" to messageId,
-                "disable_notification" to disableNotification
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.FromChatId to fromChatId,
+                PayloadDataKey.MessageId to messageId,
+                PayloadDataKey.DisableNotification to disableNotification
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -566,16 +566,16 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.CopyMessage,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "from_chat_id" to fromChatId,
-                "message_id" to messageId,
-                "caption" to caption,
-                "parse_mode" to parseMode,
-                "caption_entities" to captionEntities,
-                "disable_notification" to disableNotification,
-                "reply_to_message_id" to replyToMessageId,
-                "allow_sending_without_reply" to allowSendingWithoutReply,
-                "reply_markup" to replyMarkup
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.FromChatId to fromChatId,
+                PayloadDataKey.MessageId to messageId,
+                PayloadDataKey.Caption to caption,
+                PayloadDataKey.ParseMode to parseMode,
+                PayloadDataKey.CaptionEntities to captionEntities,
+                PayloadDataKey.DisableNotification to disableNotification,
+                PayloadDataKey.ReplyToMessageId to replyToMessageId,
+                PayloadDataKey.AllowSendingWithoutReply to allowSendingWithoutReply,
+                PayloadDataKey.ReplyMarkup to replyMarkup
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -651,18 +651,18 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SendPhoto,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "photo" to parseFileInput(
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.Photo to parseFileInput(
                     fileInput = photo,
                     fileName = fileName
                 ),
-                "caption" to caption,
-                "parse_mode" to parseMode,
-                "caption_entities" to captionEntities,
-                "disable_notification" to disableNotification,
-                "reply_to_message_id" to replyToMessageId,
-                "allow_sending_without_reply" to allowSendingWithoutReply,
-                "reply_markup" to replyMarkup
+                PayloadDataKey.Caption to caption,
+                PayloadDataKey.ParseMode to parseMode,
+                PayloadDataKey.CaptionEntities to captionEntities,
+                PayloadDataKey.DisableNotification to disableNotification,
+                PayloadDataKey.ReplyToMessageId to replyToMessageId,
+                PayloadDataKey.AllowSendingWithoutReply to allowSendingWithoutReply,
+                PayloadDataKey.ReplyMarkup to replyMarkup
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -760,22 +760,22 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SendAudio,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "audio" to parseFileInput(
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.Audio to parseFileInput(
                     fileInput = audio,
                     fileName = fileName
                 ),
-                "duration" to duration,
-                "performer" to performer,
-                "title" to title,
-                "caption" to caption,
-                "disable_notification" to disableNotification,
-                "reply_to_message_id" to replyToMessageId,
-                "reply_markup" to replyMarkup,
-                "parse_mode" to parseMode,
-                "thumb" to thumb,
-                "allow_sending_without_reply" to allowSendingWithoutReply,
-                "caption_entities" to captionEntities,
+                PayloadDataKey.Duration to duration,
+                PayloadDataKey.Performer to performer,
+                PayloadDataKey.Title to title,
+                PayloadDataKey.Caption to caption,
+                PayloadDataKey.DisableNotification to disableNotification,
+                PayloadDataKey.ReplyToMessageId to replyToMessageId,
+                PayloadDataKey.ReplyMarkup to replyMarkup,
+                PayloadDataKey.ParseMode to parseMode,
+                PayloadDataKey.Thumb to thumb,
+                PayloadDataKey.AllowSendingWithoutReply to allowSendingWithoutReply,
+                PayloadDataKey.CaptionEntities to captionEntities,
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -865,20 +865,20 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SendDocument,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "document" to parseFileInput(
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.Document to parseFileInput(
                     fileInput = document,
                     fileName = fileName
                 ),
-                "caption" to caption,
-                "parse_mode" to parseMode,
-                "caption_entities" to captionEntities,
-                "disable_notification" to disableNotification,
-                "reply_to_message_id" to replyToMessageId,
-                "allow_sending_without_reply" to allowSendingWithoutReply,
-                "disable_content_type_detection" to disableContentTypeDetection,
-                "reply_markup" to replyMarkup,
-                "thumb" to thumb
+                PayloadDataKey.Caption to caption,
+                PayloadDataKey.ParseMode to parseMode,
+                PayloadDataKey.CaptionEntities to captionEntities,
+                PayloadDataKey.DisableNotification to disableNotification,
+                PayloadDataKey.ReplyToMessageId to replyToMessageId,
+                PayloadDataKey.AllowSendingWithoutReply to allowSendingWithoutReply,
+                PayloadDataKey.DisableContentTypeDetection to disableContentTypeDetection,
+                PayloadDataKey.ReplyMarkup to replyMarkup,
+                PayloadDataKey.Thumb to thumb
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -980,23 +980,23 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SendVideo,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "video" to parseFileInput(
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.Video to parseFileInput(
                     fileInput = video,
                     fileName = fileName
                 ),
-                "duration" to duration,
-                "caption" to caption,
-                "height" to height,
-                "width" to width,
-                "disable_notification" to disableNotification,
-                "reply_to_message_id" to replyToMessageId,
-                "reply_markup" to replyMarkup,
-                "parse_mode" to parseMode,
-                "supports_streaming" to supportsStreaming,
-                "thumb" to thumb,
-                "allow_sending_without_reply" to allowSendingWithoutReply,
-                "caption_entities" to captionEntities
+                PayloadDataKey.Duration to duration,
+                PayloadDataKey.Caption to caption,
+                PayloadDataKey.Height to height,
+                PayloadDataKey.Width to width,
+                PayloadDataKey.DisableNotification to disableNotification,
+                PayloadDataKey.ReplyToMessageId to replyToMessageId,
+                PayloadDataKey.ReplyMarkup to replyMarkup,
+                PayloadDataKey.ParseMode to parseMode,
+                PayloadDataKey.SupportsStreaming to supportsStreaming,
+                PayloadDataKey.Thumb to thumb,
+                PayloadDataKey.AllowSendingWithoutReply to allowSendingWithoutReply,
+                PayloadDataKey.CaptionEntities to captionEntities
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -1091,22 +1091,22 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SendAnimation,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "animation" to parseFileInput(
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.Animation to parseFileInput(
                     fileInput = animation,
                     fileName = fileName
                 ),
-                "duration" to duration,
-                "width" to width,
-                "height" to height,
-                "thumb" to thumb,
-                "caption" to caption,
-                "parse_mode" to parseMode,
-                "disable_notification" to disableNotification,
-                "reply_to_message_id" to replyToMessageId,
-                "reply_markup" to replyMarkup,
-                "allow_sending_without_reply" to allowSendingWithoutReply,
-                "caption_entities" to captionEntities
+                PayloadDataKey.Duration to duration,
+                PayloadDataKey.Width to width,
+                PayloadDataKey.Height to height,
+                PayloadDataKey.Thumb to thumb,
+                PayloadDataKey.Caption to caption,
+                PayloadDataKey.ParseMode to parseMode,
+                PayloadDataKey.DisableNotification to disableNotification,
+                PayloadDataKey.ReplyToMessageId to replyToMessageId,
+                PayloadDataKey.ReplyMarkup to replyMarkup,
+                PayloadDataKey.AllowSendingWithoutReply to allowSendingWithoutReply,
+                PayloadDataKey.CaptionEntities to captionEntities
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -1187,19 +1187,19 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SendVoice,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "voice" to parseFileInput(
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.Voice to parseFileInput(
                     fileInput = voice,
                     fileName = fileName
                 ),
-                "duration" to duration,
-                "caption" to caption,
-                "disable_notification" to disableNotification,
-                "reply_to_message_id" to replyToMessageId,
-                "reply_markup" to replyMarkup,
-                "parse_mode" to parseMode,
-                "allow_sending_without_reply" to allowSendingWithoutReply,
-                "caption_entities" to captionEntities
+                PayloadDataKey.Duration to duration,
+                PayloadDataKey.Caption to caption,
+                PayloadDataKey.DisableNotification to disableNotification,
+                PayloadDataKey.ReplyToMessageId to replyToMessageId,
+                PayloadDataKey.ReplyMarkup to replyMarkup,
+                PayloadDataKey.ParseMode to parseMode,
+                PayloadDataKey.AllowSendingWithoutReply to allowSendingWithoutReply,
+                PayloadDataKey.CaptionEntities to captionEntities
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -1283,18 +1283,18 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SendVideoNote,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "video_note" to parseFileInput(
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.VideoNote to parseFileInput(
                     fileInput = videoNote,
                     fileName = fileName
                 ),
-                "duration" to duration,
-                "length" to length,
-                "disable_notification" to disableNotification,
-                "reply_to_message_id" to replyToMessageId,
-                "reply_markup" to replyMarkup,
-                "thumb" to thumb,
-                "allow_sending_without_reply" to allowSendingWithoutReply
+                PayloadDataKey.Duration to duration,
+                PayloadDataKey.Length to length,
+                PayloadDataKey.DisableNotification to disableNotification,
+                PayloadDataKey.ReplyToMessageId to replyToMessageId,
+                PayloadDataKey.ReplyMarkup to replyMarkup,
+                PayloadDataKey.Thumb to thumb,
+                PayloadDataKey.AllowSendingWithoutReply to allowSendingWithoutReply
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -1339,11 +1339,11 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SendMediaGroup,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "media" to media,
-                "disable_notification" to disableNotification,
-                "reply_to_message_id" to replyToMessageId,
-                "allow_sending_without_reply" to allowSendingWithoutReply
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.Media to media,
+                PayloadDataKey.DisableNotification to disableNotification,
+                PayloadDataKey.ReplyToMessageId to replyToMessageId,
+                PayloadDataKey.AllowSendingWithoutReply to allowSendingWithoutReply
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -1412,18 +1412,18 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SendLocation,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "latitude" to latitude,
-                "longitude" to longitude,
-                "disable_notification" to disableNotification,
-                "reply_to_message_id" to replyToMessageId,
-                "allow_sending_without_reply" to allowSendingWithoutReply,
-                "reply_markup" to replyMarkup,
-                "location" to location,
-                "live_period" to livePeriod,
-                "horizontal_accuracy" to horizontalAccuracy,
-                "heading" to heading,
-                "proximity_alert_radius" to proximityAlertRadius
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.Latitude to latitude,
+                PayloadDataKey.Longitude to longitude,
+                PayloadDataKey.DisableNotification to disableNotification,
+                PayloadDataKey.ReplyToMessageId to replyToMessageId,
+                PayloadDataKey.AllowSendingWithoutReply to allowSendingWithoutReply,
+                PayloadDataKey.ReplyMarkup to replyMarkup,
+                PayloadDataKey.Location to location,
+                PayloadDataKey.LivePeriod to livePeriod,
+                PayloadDataKey.HorizontalAccuracy to horizontalAccuracy,
+                PayloadDataKey.Heading to heading,
+                PayloadDataKey.ProximityAlertRadius to proximityAlertRadius
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -1486,16 +1486,16 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.EditMessageLiveLocation,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "message_id" to messageId,
-                "inline_message_id" to inlineMessageId,
-                "latitude" to latitude,
-                "longitude" to longitude,
-                "location" to location,
-                "horizontal_accuracy" to horizontalAccuracy,
-                "heading" to heading,
-                "proximity_alert_radius" to proximityAlertRadius,
-                "reply_markup" to replyMarkup
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.MessageId to messageId,
+                PayloadDataKey.InlineMessageId to inlineMessageId,
+                PayloadDataKey.Latitude to latitude,
+                PayloadDataKey.Longitude to longitude,
+                PayloadDataKey.Location to location,
+                PayloadDataKey.HorizontalAccuracy to horizontalAccuracy,
+                PayloadDataKey.Heading to heading,
+                PayloadDataKey.ProximityAlertRadius to proximityAlertRadius,
+                PayloadDataKey.ReplyMarkup to replyMarkup
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -1538,10 +1538,10 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.StopMessageLiveLocation,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "message_id" to messageId,
-                "inline_message_id" to inlineMessageId,
-                "reply_markup" to replyMarkup
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.MessageId to messageId,
+                PayloadDataKey.InlineMessageId to inlineMessageId,
+                PayloadDataKey.ReplyMarkup to replyMarkup
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -1618,19 +1618,19 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SendVenue,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "latitude" to latitude,
-                "longitude" to longitude,
-                "title" to title,
-                "address" to address,
-                "foursquare_id" to foursquareId,
-                "foursquare_type" to foursquareType,
-                "google_place_id" to googlePlaceId,
-                "google_place_type" to googlePlaceType,
-                "disable_notification" to disableNotification,
-                "reply_to_message_id" to replyToMessageId,
-                "allow_sending_without_reply" to allowSendingWithoutReply,
-                "reply_markup" to replyMarkup
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.Latitude to latitude,
+                PayloadDataKey.Longitude to longitude,
+                PayloadDataKey.Title to title,
+                PayloadDataKey.Address to address,
+                PayloadDataKey.FoursquareId to foursquareId,
+                PayloadDataKey.FoursquareType to foursquareType,
+                PayloadDataKey.GooglePlaceId to googlePlaceId,
+                PayloadDataKey.GooglePlaceType to googlePlaceType,
+                PayloadDataKey.DisableNotification to disableNotification,
+                PayloadDataKey.ReplyToMessageId to replyToMessageId,
+                PayloadDataKey.AllowSendingWithoutReply to allowSendingWithoutReply,
+                PayloadDataKey.ReplyMarkup to replyMarkup
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -1692,15 +1692,15 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SendContact,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "phone_number" to phoneNumber,
-                "first_name" to firstName,
-                "last_name" to lastName,
-                "vcard" to vcard,
-                "disable_notification" to disableNotification,
-                "reply_to_message_id" to replyToMessageId,
-                "allow_sending_without_reply" to allowSendingWithoutReply,
-                "reply_markup" to replyMarkup
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.PhoneNumber to phoneNumber,
+                PayloadDataKey.FirstName to firstName,
+                PayloadDataKey.LastName to lastName,
+                PayloadDataKey.Vcard to vcard,
+                PayloadDataKey.DisableNotification to disableNotification,
+                PayloadDataKey.ReplyToMessageId to replyToMessageId,
+                PayloadDataKey.AllowSendingWithoutReply to allowSendingWithoutReply,
+                PayloadDataKey.ReplyMarkup to replyMarkup
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -1788,24 +1788,23 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SendPoll,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "question" to question,
-                "options" to options,
-                "is_anonymous" to isAnonymous,
-                "type" to type,
-                "allows_multiple_answers" to allowsMultipleAnswers,
-                "correct_option_id" to correctOptionId,
-                "is_closed" to isClosed,
-                "disable_notification" to disableNotification,
-                "reply_to_message_id" to replyToMessageId,
-                "reply_markup" to replyMarkup,
-                "timeout" to timeOut,
-                "explanation" to explanation,
-                "explanation_parse_mode" to explanationParseMode,
-                "open_period" to openPeriod,
-                "close_date" to closeDate,
-                "allow_sending_without_reply" to allowSendingWithoutReply,
-                "explanation_entities" to explanationEntities
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.Question to question,
+                PayloadDataKey.Options to options,
+                PayloadDataKey.IsAnonymous to isAnonymous,
+                PayloadDataKey.Type to type,
+                PayloadDataKey.AllowsMultipleAnswers to allowsMultipleAnswers,
+                PayloadDataKey.CorrectOptionId to correctOptionId,
+                PayloadDataKey.IsClosed to isClosed,
+                PayloadDataKey.DisableNotification to disableNotification,
+                PayloadDataKey.ReplyToMessageId to replyToMessageId,
+                PayloadDataKey.ReplyMarkup to replyMarkup,
+                PayloadDataKey.Explanation to explanation,
+                PayloadDataKey.ExplanationParseMode to explanationParseMode,
+                PayloadDataKey.OpenPeriod to openPeriod,
+                PayloadDataKey.CloseDate to closeDate,
+                PayloadDataKey.AllowSendingWithoutReply to allowSendingWithoutReply,
+                PayloadDataKey.ExplanationEntities to explanationEntities
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -1860,12 +1859,12 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SendDice,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "disable_notification" to disableNotification,
-                "reply_to_message_id" to replyToMessageId,
-                "reply_markup" to replyMarkup,
-                "emoji" to emoji,
-                "allow_sending_without_reply" to allowSendingWithoutReply
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.DisableNotification to disableNotification,
+                PayloadDataKey.ReplyToMessageId to replyToMessageId,
+                PayloadDataKey.ReplyMarkup to replyMarkup,
+                PayloadDataKey.Emoji to emoji,
+                PayloadDataKey.AllowSendingWithoutReply to allowSendingWithoutReply
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -1906,8 +1905,8 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SendChatAction,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "action" to action
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.Action to action
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -1946,9 +1945,9 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.GetUserProfilePhotos,
             payloadData = mapOf(
-                "user_id" to userId,
-                "offset" to offset,
-                "limit" to limit
+                PayloadDataKey.UserId to userId,
+                PayloadDataKey.Offset to offset,
+                PayloadDataKey.Limit to limit
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -1996,7 +1995,7 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.GetFile,
             payloadData = mapOf(
-                "file_id" to fileId
+                PayloadDataKey.FileId to fileId
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2051,10 +2050,10 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.BanChatMember,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "user_id" to userId,
-                "until_date" to untilDate,
-                "revoke_messages" to revokeMessages
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.UserId to userId,
+                PayloadDataKey.UntilDate to untilDate,
+                PayloadDataKey.RevokeMessages to revokeMessages
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2098,9 +2097,9 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.UnbanChatMember,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "user_id" to userId,
-                "only_if_banned" to onlyIfBanned
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.UserId to userId,
+                PayloadDataKey.OnlyIfBanned to onlyIfBanned
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2153,10 +2152,10 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.RestrictChatMember,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "user_id" to userId,
-                "until_date" to untilDate,
-                "permissions" to permissions
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.UserId to userId,
+                PayloadDataKey.UntilDate to untilDate,
+                PayloadDataKey.Permissions to permissions
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2237,19 +2236,19 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.PromoteChatMember,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "user_id" to userId,
-                "is_anonymous" to isAnonymous,
-                "can_change_info" to canChangeInfo,
-                "can_post_messages" to canPostMessages,
-                "can_edit_messages" to canEditMessages,
-                "can_delete_messages" to canDeleteMessages,
-                "can_invite_users" to canInviteUsers,
-                "can_restrict_members" to canRestrictMembers,
-                "can_pin_messages" to canPinMessages,
-                "can_promote_members" to canPromoteMembers,
-                "can_manage_chat" to canManageChat,
-                "can_manage_voice_chats" to canManageVoiceChats
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.UserId to userId,
+                PayloadDataKey.IsAnonymous to isAnonymous,
+                PayloadDataKey.CanChangeInfo to canChangeInfo,
+                PayloadDataKey.CanPostMessages to canPostMessages,
+                PayloadDataKey.CanEditMessages to canEditMessages,
+                PayloadDataKey.CanDeleteMessages to canDeleteMessages,
+                PayloadDataKey.CanInviteUsers to canInviteUsers,
+                PayloadDataKey.CanRestrictMembers to canRestrictMembers,
+                PayloadDataKey.CanPinMessages to canPinMessages,
+                PayloadDataKey.CanPromoteMembers to canPromoteMembers,
+                PayloadDataKey.CanManageChats to canManageChat,
+                PayloadDataKey.CanManageVoiceChats to canManageVoiceChats
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2289,9 +2288,9 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SetChatAdministratorCustomTitle,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "user_id" to userId,
-                "custom_title" to customTitle
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.UserId to userId,
+                PayloadDataKey.CustomTitle to customTitle
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2329,8 +2328,8 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SetChatPermissions,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "permissions" to permissions
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.Permissions to permissions
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2373,7 +2372,7 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.ExportChatInviteLink,
             payloadData = mapOf(
-                "chat_id" to chatId
+                PayloadDataKey.ChatId to chatId
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2419,9 +2418,9 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.CreateChatInviteLink,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "expire_date" to expireDate,
-                "member_limit" to memberLimit
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.ExpireDate to expireDate,
+                PayloadDataKey.MemberLimit to memberLimit
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2468,10 +2467,10 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.EditChatInviteLink,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "invite_link" to inviteLink,
-                "expire_date" to expireDate,
-                "member_limit" to memberLimit
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.InviteLink to inviteLink,
+                PayloadDataKey.ExpireDate to expireDate,
+                PayloadDataKey.MemberLimit to memberLimit
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2511,8 +2510,8 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.RevokeChatInviteLink,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "invite_link" to inviteLink
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.InviteLink to inviteLink
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2554,8 +2553,8 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SetChatPhoto,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "photo" to photo
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.Photo to photo
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2591,7 +2590,7 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.DeleteChatPhoto,
             payloadData = mapOf(
-                "chat_id" to chatId
+                PayloadDataKey.ChatId to chatId
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2629,8 +2628,8 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SetChatTitle,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "title" to title
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.Title to title
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2668,8 +2667,8 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SetChatDescription,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "description" to description
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.Description to description
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2712,9 +2711,9 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.PinChatMessage,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "message_id" to messageId,
-                "disable_notification" to disableNotification
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.MessageId to messageId,
+                PayloadDataKey.DisableNotification to disableNotification
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2754,8 +2753,8 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.UnpinChatMessage,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "message_id" to messageId
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.MessageId to messageId
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2792,7 +2791,7 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.UnpinAllChatMessages,
             payloadData = mapOf(
-                "chat_id" to chatId
+                PayloadDataKey.ChatId to chatId
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2826,7 +2825,7 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.LeaveChat,
             payloadData = mapOf(
-                "chat_id" to chatId
+                PayloadDataKey.ChatId to chatId
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2861,7 +2860,7 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.GetChat,
             payloadData = mapOf(
-                "chat_id" to chatId
+                PayloadDataKey.ChatId to chatId
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2898,7 +2897,7 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.GetChatAdministrators,
             payloadData = mapOf(
-                "chat_id" to chatId
+                PayloadDataKey.ChatId to chatId
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2934,7 +2933,7 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.GetChatMemberCount,
             payloadData = mapOf(
-                "chat_id" to chatId
+                PayloadDataKey.ChatId to chatId
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -2970,8 +2969,8 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.GetChatMember,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "user_id" to userId
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.UserId to userId
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -3008,8 +3007,8 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SetChatStickerSet,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "sticker_set_name" to stickerSetName
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.StickerSetName to stickerSetName
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -3043,7 +3042,7 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.DeleteChatStickerSet,
             payloadData = mapOf(
-                "chat_id" to chatId
+                PayloadDataKey.ChatId to chatId
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -3099,11 +3098,11 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.AnswerCallbackQuery,
             payloadData = mapOf(
-                "callback_query_id" to callbackQueryId,
-                "text" to text,
-                "show_alert" to showAlert,
-                "url" to url,
-                "cache_time" to cacheTime
+                PayloadDataKey.CallbackQueryId to callbackQueryId,
+                PayloadDataKey.Text to text,
+                PayloadDataKey.ShowAlert to showAlert,
+                PayloadDataKey.Url to url,
+                PayloadDataKey.CacheTime to cacheTime
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -3153,9 +3152,9 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SetMyCommands,
             payloadData = mapOf(
-                "commands" to commands,
-                "scope" to scope,
-                "language_code" to languageCode
+                PayloadDataKey.Commands to commands,
+                PayloadDataKey.Scope to scope,
+                PayloadDataKey.LanguageCode to languageCode
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -3199,8 +3198,8 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.DeleteMyCommands,
             payloadData = mapOf(
-                "scope" to scope,
-                "language_code" to languageCode
+                PayloadDataKey.Scope to scope,
+                PayloadDataKey.LanguageCode to languageCode
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -3244,8 +3243,8 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.GetMyCommands,
             payloadData = mapOf(
-                "scope" to scope,
-                "language_code" to languageCode
+                PayloadDataKey.Scope to scope,
+                PayloadDataKey.LanguageCode to languageCode
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -3304,14 +3303,14 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.EditMessageText,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "message_id" to messageId,
-                "inline_message_id" to inlineMessageId,
-                "text" to text,
-                "parse_mode" to parseMode,
-                "disable_web_page_preview" to disableWebPagePreview,
-                "reply_markup" to replyMarkup,
-                "entities" to entities
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.MessageId to messageId,
+                PayloadDataKey.InlineMessageId to inlineMessageId,
+                PayloadDataKey.Text to text,
+                PayloadDataKey.ParseMode to parseMode,
+                PayloadDataKey.DisableWebPagePreview to disableWebPagePreview,
+                PayloadDataKey.ReplyMarkup to replyMarkup,
+                PayloadDataKey.Entities to entities
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -3367,14 +3366,13 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.EditMessageCaption,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "message_id" to messageId,
-                "inline_message_id" to inlineMessageId,
-                "caption" to caption,
-                "parse_mode" to parseMode,
-                "reply_markup" to replyMarkup,
-                "timeout" to timeOut,
-                "caption_entities" to captionEntities
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.MessageId to messageId,
+                PayloadDataKey.InlineMessageId to inlineMessageId,
+                PayloadDataKey.Caption to caption,
+                PayloadDataKey.ParseMode to parseMode,
+                PayloadDataKey.ReplyMarkup to replyMarkup,
+                PayloadDataKey.CaptionEntities to captionEntities
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -3426,11 +3424,11 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.EditMessageMedia,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "message_id" to messageId,
-                "inline_message_id" to inlineMessageId,
-                "media" to media,
-                "reply_markup" to replyMarkup
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.MessageId to messageId,
+                PayloadDataKey.InlineMessageId to inlineMessageId,
+                PayloadDataKey.Media to media,
+                PayloadDataKey.ReplyMarkup to replyMarkup
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -3476,10 +3474,10 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.EditMessageReplyMarkup,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "message_id" to messageId,
-                "inline_message_id" to inlineMessageId,
-                "reply_markup" to replyMarkup
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.MessageId to messageId,
+                PayloadDataKey.InlineMessageId to inlineMessageId,
+                PayloadDataKey.ReplyMarkup to replyMarkup
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -3519,9 +3517,9 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.StopPoll,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "message_id" to messageId,
-                "reply_markup" to replyMarkup
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.MessageId to messageId,
+                PayloadDataKey.ReplyMarkup to replyMarkup
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -3569,8 +3567,8 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.DeleteMessage,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "message_id" to messageId
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.MessageId to messageId
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -3631,15 +3629,15 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SendSticker,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "sticker" to parseFileInput(
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.Sticker to parseFileInput(
                     fileInput = sticker,
                     fileName = ""
                 ),
-                "disable_notification" to disableNotification,
-                "reply_to_message_id" to replyToMessageId,
-                "allow_sending_without_reply" to allowSendingWithoutReply,
-                "reply_markup" to replyMarkup
+                PayloadDataKey.DisableNotification to disableNotification,
+                PayloadDataKey.ReplyToMessageId to replyToMessageId,
+                PayloadDataKey.AllowSendingWithoutReply to allowSendingWithoutReply,
+                PayloadDataKey.ReplyMarkup to replyMarkup
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -3672,7 +3670,7 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.GetStickerSet,
             payloadData = mapOf(
-                "name" to name
+                PayloadDataKey.Name to name
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -3719,8 +3717,8 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.UploadStickerFile,
             payloadData = mapOf(
-                "user_id" to userId,
-                "png_sticker" to parseFileInput(
+                PayloadDataKey.UserId to userId,
+                PayloadDataKey.PngSticker to parseFileInput(
                     fileInput = pngSticker,
                     fileName = ""
                 )
@@ -3803,20 +3801,20 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.CreateNewStickerSet,
             payloadData = mapOf(
-                "user_id" to userId,
-                "name" to name,
-                "title" to title,
-                "emojis" to emojis,
-                "png_sticker" to parseFileInput(
+                PayloadDataKey.UserId to userId,
+                PayloadDataKey.Name to name,
+                PayloadDataKey.Title to title,
+                PayloadDataKey.Emojis to emojis,
+                PayloadDataKey.PngSticker to parseFileInput(
                     fileInput = pngSticker,
                     fileName = ""
                 ),
-                "tgs_sticker" to parseFileInput(
+                PayloadDataKey.TgsSticker to parseFileInput(
                     fileInput = tgsSticker,
                     fileName = ""
                 ),
-                "contains_masks" to containsMasks,
-                "mask_position" to maskPosition
+                PayloadDataKey.ContainsMasks to containsMasks,
+                PayloadDataKey.MaskPosition to maskPosition
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -3889,18 +3887,18 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.AddStickerToSet,
             payloadData = mapOf(
-                "user_id" to userId,
-                "name" to name,
-                "emojis" to emojis,
-                "png_sticker" to parseFileInput(
+                PayloadDataKey.UserId to userId,
+                PayloadDataKey.Name to name,
+                PayloadDataKey.Emojis to emojis,
+                PayloadDataKey.PngSticker to parseFileInput(
                     fileInput = pngSticker,
                     fileName = ""
                 ),
-                "tgs_sticker" to parseFileInput(
+                PayloadDataKey.TgsSticker to parseFileInput(
                     fileInput = tgsSticker,
                     fileName = ""
                 ),
-                "mask_position" to maskPosition
+                PayloadDataKey.MaskPosition to maskPosition
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -3935,8 +3933,8 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SetStickerPositionInSet,
             payloadData = mapOf(
-                "sticker" to sticker,
-                "position" to position
+                PayloadDataKey.Sticker to sticker,
+                PayloadDataKey.Position to position
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -3969,7 +3967,7 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.DeleteStickerFromSet,
             payloadData = mapOf(
-                "sticker" to sticker
+                PayloadDataKey.Sticker to sticker
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -4021,9 +4019,9 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SetStickerSetThumb,
             payloadData = mapOf(
-                "name" to name,
-                "user_id" to userId,
-                "thumb" to parseFileInput(
+                PayloadDataKey.Name to name,
+                PayloadDataKey.UserId to userId,
+                PayloadDataKey.Thumb to parseFileInput(
                     fileInput = thumb,
                     fileName = ""
                 )
@@ -4107,13 +4105,13 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.AnswerInlineQuery,
             payloadData = mapOf(
-                "inline_query_id" to inlineQueryId,
-                "results" to results,
-                "cache_time" to cacheTime,
-                "is_personal" to isPersonal,
-                "next_offset" to nextOffset,
-                "switch_pm_text" to switchPmText,
-                "switch_pm_parameter" to switchPmParameter
+                PayloadDataKey.InlineQueryId to inlineQueryId,
+                PayloadDataKey.Results to results,
+                PayloadDataKey.CacheTime to cacheTime,
+                PayloadDataKey.IsPersonal to isPersonal,
+                PayloadDataKey.NextOffset to nextOffset,
+                PayloadDataKey.SwitchPmText to switchPmText,
+                PayloadDataKey.SwitchPmParameter to switchPmParameter
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -4249,32 +4247,32 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SendInvoice,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "title" to title,
-                "description" to description,
-                "payload" to payload,
-                "provider_token" to providerToken,
-                "start_parameter" to startParameter,
-                "currency" to currency,
-                "prices" to prices,
-                "provider_data" to providerData,
-                "photo_url" to photoUrl,
-                "photo_size" to photoSize,
-                "photo_width" to photoWidth,
-                "photo_height" to photoHeight,
-                "need_name" to needName,
-                "need_phone_number" to needPhoneNumber,
-                "need_email" to needEmail,
-                "need_shipping_address" to needShippingAddress,
-                "send_phone_number_to_provider" to sendPhoneNumberToProvider,
-                "send_email_to_provider" to sendEmailToProvider,
-                "is_flexible" to isFlexible,
-                "max_tip_amount" to maxTipAmount,
-                "suggested_tip_amounts" to suggestedTipAmounts,
-                "disable_notification" to disableNotification,
-                "reply_to_message_id" to replyToMessageId,
-                "allow_sending_without_reply" to allowSendingWithoutReply,
-                "reply_markup" to replyMarkup
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.Title to title,
+                PayloadDataKey.Description to description,
+                PayloadDataKey.Payload to payload,
+                PayloadDataKey.ProviderToken to providerToken,
+                PayloadDataKey.StartParameter to startParameter,
+                PayloadDataKey.Currency to currency,
+                PayloadDataKey.Prices to prices,
+                PayloadDataKey.ProviderData to providerData,
+                PayloadDataKey.PhotoUrl to photoUrl,
+                PayloadDataKey.PhotoSize to photoSize,
+                PayloadDataKey.PhotoWidth to photoWidth,
+                PayloadDataKey.PhotoHeight to photoHeight,
+                PayloadDataKey.NeedName to needName,
+                PayloadDataKey.NeedPhoneNumber to needPhoneNumber,
+                PayloadDataKey.NeedEmail to needEmail,
+                PayloadDataKey.NeedShippingAddress to needShippingAddress,
+                PayloadDataKey.SendPhoneNumberToProvider to sendPhoneNumberToProvider,
+                PayloadDataKey.SendEmailToProvider to sendEmailToProvider,
+                PayloadDataKey.IsFlexible to isFlexible,
+                PayloadDataKey.MaxTipAmount to maxTipAmount,
+                PayloadDataKey.SuggestedTipAmounts to suggestedTipAmounts,
+                PayloadDataKey.DisableNotification to disableNotification,
+                PayloadDataKey.ReplyToMessageId to replyToMessageId,
+                PayloadDataKey.AllowSendingWithoutReply to allowSendingWithoutReply,
+                PayloadDataKey.ReplyMarkup to replyMarkup
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -4322,10 +4320,10 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.AnswerShippingQuery,
             payloadData = mapOf(
-                "shipping_query_id" to shippingQueryId,
-                "ok" to ok,
-                "shipping_options" to shippingOptions,
-                "error_message" to errorMessage
+                PayloadDataKey.ShippingQueryId to shippingQueryId,
+                PayloadDataKey.Ok to ok,
+                PayloadDataKey.ShippingOptions to shippingOptions,
+                PayloadDataKey.ErrorMessage to errorMessage
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -4374,9 +4372,9 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.AnswerPreCheckoutQuery,
             payloadData = mapOf(
-                "pre_checkout_query_id" to preCheckoutQueryId,
-                "ok" to ok,
-                "error_message" to errorMessage
+                PayloadDataKey.PreCheckoutQueryId to preCheckoutQueryId,
+                PayloadDataKey.Ok to ok,
+                PayloadDataKey.ErrorMessage to errorMessage
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -4421,8 +4419,8 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SetPassportDataErrors,
             payloadData = mapOf(
-                "user_id" to userId,
-                "errors" to errors
+                PayloadDataKey.UserId to userId,
+                PayloadDataKey.Errors to errors
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -4473,12 +4471,12 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SendGame,
             payloadData = mapOf(
-                "chat_id" to chatId,
-                "game_short_name" to gameShortName,
-                "disable_notification" to disableNotification,
-                "reply_to_message_id" to replyToMessageId,
-                "allow_sending_without_reply" to allowSendingWithoutReply,
-                "reply_markup" to replyMarkup
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.GameShortName to gameShortName,
+                PayloadDataKey.DisableNotification to disableNotification,
+                PayloadDataKey.ReplyToMessageId to replyToMessageId,
+                PayloadDataKey.AllowSendingWithoutReply to allowSendingWithoutReply,
+                PayloadDataKey.ReplyMarkup to replyMarkup
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -4530,13 +4528,13 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.SetGameScore,
             payloadData = mapOf(
-                "user_id" to userId,
-                "score" to score,
-                "force" to force,
-                "disable_edit_message" to disableEditMessage,
-                "chat_id" to chatId,
-                "message_id" to messageId,
-                "inline_message_id" to inlineMessageId
+                PayloadDataKey.UserId to userId,
+                PayloadDataKey.Score to score,
+                PayloadDataKey.Force to force,
+                PayloadDataKey.DisableEditMessage to disableEditMessage,
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.MessageId to messageId,
+                PayloadDataKey.InlineMessageId to inlineMessageId
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
@@ -4584,10 +4582,10 @@ public final class Bot
         httpPost(
             endPoint = EndPoint.GetGameHighScores,
             payloadData = mapOf(
-                "user_id" to userId,
-                "chat_id" to chatId,
-                "message_id" to messageId,
-                "inline_message_id" to inlineMessageId,
+                PayloadDataKey.UserId to userId,
+                PayloadDataKey.ChatId to chatId,
+                PayloadDataKey.MessageId to messageId,
+                PayloadDataKey.InlineMessageId to inlineMessageId,
             ),
             timeOut = timeOut,
             apiKwArgs = apiKwArgs

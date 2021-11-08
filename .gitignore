@@ -1,4 +1,6 @@
 **/.cache/**
 **/.gradle/**
 **/.idea/**
+**/.vscode/**
+**/.tmp/**
 **/build/**

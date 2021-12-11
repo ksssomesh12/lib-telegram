@@ -15,7 +15,7 @@ kotlin {
     dependencies {
         implementation(kotlin("stdlib"))
 
-        val ktorVersion = "1.6.4"
+        val ktorVersion = "1.6.7"
         implementation("io.ktor:ktor-client-cio:${ktorVersion}")
         implementation("io.ktor:ktor-client-core:${ktorVersion}")
         implementation("io.ktor:ktor-client-gson:${ktorVersion}")

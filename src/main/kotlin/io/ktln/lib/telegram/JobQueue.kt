@@ -1,7 +1,5 @@
 package io.ktln.lib.telegram
 
-public final class JobQueue
-    (
-    )
-{
+public final class JobQueue(
+    ) {
 }

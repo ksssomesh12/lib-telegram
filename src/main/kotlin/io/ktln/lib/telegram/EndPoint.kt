@@ -1,10 +1,8 @@
 package io.ktln.lib.telegram
 
-public final enum class EndPoint
-    (
+public final enum class EndPoint(
     public val value: String
-    )
-{
+    ) {
     AddStickerToSet("addStickerToSet"),
     AnswerCallbackQuery("answerCallbackQuery"),
     AnswerInlineQuery("answerInlineQuery"),

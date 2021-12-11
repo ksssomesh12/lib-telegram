@@ -434,7 +434,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun sendMessage(
-        chatId: Int,
+        chatId: Long,
         text: String,
         parseMode: ParseMode? = null,
         disableWebPagePreview: Boolean? = null,
@@ -489,8 +489,8 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun forwardMessage(
-        chatId: Int,
-        fromChatId: Int,
+        chatId: Long,
+        fromChatId: Long,
         messageId: Int,
         disableNotification: Boolean? = null,
         timeOut: Float = 0.0f,
@@ -550,8 +550,8 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun copyMessage(
-        chatId: Int,
-        fromChatId: Int,
+        chatId: Long,
+        fromChatId: Long,
         messageId: Int,
         caption: String? = null,
         parseMode: ParseMode? = null,
@@ -635,7 +635,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun sendPhoto(
-        chatId: Int,
+        chatId: Long,
         photo: FileInput,
         caption: String? = null,
         disableNotification: Boolean? = null,
@@ -740,7 +740,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun sendAudio(
-        chatId: Int,
+        chatId: Long,
         audio: FileInput,
         duration: Int? = null,
         performer: String? = null,
@@ -847,7 +847,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun sendDocument(
-        chatId: Int,
+        chatId: Long,
         document: FileInput,
         fileName: String? = null,
         caption: String? = null,
@@ -959,7 +959,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun sendVideo(
-        chatId: Int,
+        chatId: Long,
         video: FileInput,
         duration: Int? = null,
         caption: String? = null,
@@ -1071,7 +1071,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun sendAnimation(
-        chatId: Int,
+        chatId: Long,
         animation: FileInput,
         duration: Int? = null,
         width: Int? = null,
@@ -1170,7 +1170,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun sendVoice(
-        chatId: Int,
+        chatId: Long,
         voice: FileInput,
         duration: Int? = null,
         caption: String? = null,
@@ -1267,7 +1267,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun sendVideoNote(
-        chatId: Int,
+        chatId: Long,
         videoNote: FileInput,
         duration: Int? = null,
         length: Int? = null,
@@ -1328,7 +1328,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun sendMediaGroup(
-        chatId: Int,
+        chatId: Long,
         media: List<InputMedia>,
         disableNotification: Boolean? = null,
         replyToMessageId: Int? = null,
@@ -1394,7 +1394,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun sendLocation(
-        chatId: Int,
+        chatId: Long,
         latitude: Float? = null,
         longitude: Float? = null,
         disableNotification: Boolean? = null,
@@ -1470,7 +1470,7 @@ public final class Bot
     edited message is returned, otherwise :obj:`True` is returned.
      */
     public final suspend fun editMessageLiveLocation(
-        chatId: Int? = null,
+        chatId: Long? = null,
         messageId: Int? = null,
         inlineMessageId: Int? = null,
         latitude: Float? = null,
@@ -1528,7 +1528,7 @@ public final class Bot
     sent Message is returned, otherwise :obj:`True` is returned.
      */
     public final suspend fun stopMessageLiveLocation(
-        chatId: Int? = null,
+        chatId: Long? = null,
         messageId: Int? = null,
         inlineMessageId: Int? = null,
         replyMarkup: ReplyMarkup? = null,
@@ -1598,7 +1598,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun sendVenue(
-        chatId: Int? = null,
+        chatId: Long? = null,
         latitude: Float? = null,
         longitude: Float? = null,
         title: String? = null,
@@ -1676,7 +1676,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun sendContact(
-        chatId: Int? = null,
+        chatId: Long? = null,
         phoneNumber: String? = null,
         firstName: String? = null,
         lastName: String? = null,
@@ -1765,7 +1765,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun sendPoll(
-        chatId: Int,
+        chatId: Long,
         question: String,
         options: List<String>,
         isAnonymous: Boolean? = null,
@@ -1847,7 +1847,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun sendDice(
-        chatId: Int,
+        chatId: Long,
         disableNotification: Boolean? = null,
         replyToMessageId: Int? = null,
         replyMarkup: ReplyMarkup? = null,
@@ -1897,7 +1897,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun sendChatAction(
-        chatId: Int,
+        chatId: Long,
         action: String,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
@@ -1936,7 +1936,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun getUserProfilePhotos(
-        userId: Int,
+        userId: Long,
         offset: Int? = null,
         limit: Int = 100,
         timeOut: Float = 0.0f,
@@ -2040,8 +2040,8 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun banChatMember(
-        chatId: Int,
-        userId: Int,
+        chatId: Long,
+        userId: Long,
         timeOut: Float = 0.0f,
         untilDate: Int? = null,
         apiKwArgs: Map<String, String?>? = null,
@@ -2088,8 +2088,8 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun unbanChatMember(
-        chatId: Int,
-        userId: Int,
+        chatId: Long,
+        userId: Long,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null,
         onlyIfBanned: Boolean? = null
@@ -2142,8 +2142,8 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun restrictChatMember(
-        chatId: Int,
-        userId: Int,
+        chatId: Long,
+        userId: Long,
         permissions: ChatPermissions,
         untilDate: Int? = null,
         timeOut: Float = 0.0f,
@@ -2217,8 +2217,8 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun promoteChatMember(
-        chatId: Int,
-        userId: Int,
+        chatId: Long,
+        userId: Long,
         canChangeInfo: Boolean? = null,
         canPostMessages: Boolean? = null,
         canEditMessages: Boolean? = null,
@@ -2279,8 +2279,8 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun setChatAdministratorCustomTitle(
-        chatId: Int,
-        userId: Int,
+        chatId: Long,
+        userId: Long,
         customTitle: String,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
@@ -2320,7 +2320,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun setChatPermissions(
-        chatId: Int,
+        chatId: Long,
         permissions: ChatPermissions,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
@@ -2365,7 +2365,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun exportChatInviteLink(
-        chatId: Int,
+        chatId: Long,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
     ): String {
@@ -2409,7 +2409,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun createChatInviteLink(
-        chatId: Int,
+        chatId: Long,
         expireDate: Int? = null,
         memberLimit: Int? = null,
         timeOut: Float = 0.0f,
@@ -2457,7 +2457,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun editChatInviteLink(
-        chatId: Int,
+        chatId: Long,
         inviteLink: String,
         expireDate: Int? = null,
         memberLimit: Int? = null,
@@ -2502,7 +2502,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun revokeChatInviteLink(
-        chatId: Int,
+        chatId: Long,
         inviteLink: String,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
@@ -2545,7 +2545,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun setChatPhoto(
-        chatId: Int,
+        chatId: Long,
         photo: FileInput,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
@@ -2583,7 +2583,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun deleteChatPhoto(
-        chatId: Int,
+        chatId: Long,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
     ): Boolean {
@@ -2620,7 +2620,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun setChatTitle(
-        chatId: Int,
+        chatId: Long,
         title: String,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
@@ -2659,7 +2659,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun setChatDescription(
-        chatId: Int,
+        chatId: Long,
         description: String,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
@@ -2702,7 +2702,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun pinChatMessage(
-        chatId: Int,
+        chatId: Long,
         messageId: Int,
         disableNotification: Boolean = false,
         timeOut: Float = 0.0f,
@@ -2745,7 +2745,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun unpinChatMessage(
-        chatId: Int,
+        chatId: Long,
         messageId: Int? = null,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
@@ -2784,7 +2784,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun unpinAllChatMessages(
-        chatId: Int,
+        chatId: Long,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
     ): Boolean {
@@ -2818,7 +2818,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun leaveChat(
-        chatId: Int,
+        chatId: Long,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
     ): Boolean {
@@ -2853,7 +2853,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun getChat(
-        chatId: Int,
+        chatId: Long,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
     ): Chat {
@@ -2890,7 +2890,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun getChatAdministrators(
-        chatId: Int,
+        chatId: Long,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
     ): List<ChatMember> {
@@ -2926,7 +2926,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun getChatMemberCount(
-        chatId: Int,
+        chatId: Long,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
     ): Int {
@@ -2961,8 +2961,8 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun getChatMember(
-        chatId: Int,
-        userId: Int,
+        chatId: Long,
+        userId: Long,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
     ): ChatMember {
@@ -2999,7 +2999,7 @@ public final class Bot
     :obj:`bool`: On success, :obj:`True` is returned.
      */
     public final suspend fun setChatStickerSet(
-        chatId: Int,
+        chatId: Long,
         stickerSetName: String,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
@@ -3035,7 +3035,7 @@ public final class Bot
     :obj:`bool`: On success, :obj:`True` is returned.
      */
     public final suspend fun deleteChatStickerSet(
-        chatId: Int,
+        chatId: Long,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
     ): Boolean {
@@ -3290,7 +3290,7 @@ public final class Bot
      */
     public final suspend fun editMessageText(
         text: String,
-        chatId: Int? = null,
+        chatId: Long? = null,
         messageId: Int? = null,
         inlineMessageId: Int? = null,
         parseMode: ParseMode? = null,
@@ -3353,7 +3353,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun editMessageCaption(
-        chatId: Int,
+        chatId: Long,
         messageId: Int,
         inlineMessageId: Int,
         caption: String,
@@ -3413,7 +3413,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun editMessageMedia(
-        chatId: Int,
+        chatId: Long,
         messageId: Int,
         inlineMessageId: Int,
         media: InputMedia,
@@ -3464,7 +3464,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun editMessageReplyMarkup(
-        chatId: Int,
+        chatId: Long,
         messageId: Int,
         inlineMessageId: Int,
         replyMarkup: InlineKeyboardMarkup,
@@ -3508,7 +3508,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun stopPoll(
-        chatId: Int,
+        chatId: Long,
         messageId: Int,
         replyMarkup: InlineKeyboardMarkup,
         timeOut: Float = 0.0f,
@@ -3559,7 +3559,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun deleteMessage(
-        chatId: Int,
+        chatId: Long,
         messageId: Int,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
@@ -3617,7 +3617,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun sendSticker(
-        chatId: Int,
+        chatId: Long,
         sticker: FileInput,
         timeOut: Float = 0.0f,
         disableNotification: Boolean? = null,
@@ -3709,7 +3709,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun uploadStickerFile(
-        userId: Int,
+        userId: Long,
         pngSticker: FileInput,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
@@ -3787,7 +3787,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun createNewStickerSet(
-        userId: Int,
+        userId: Long,
         name: String,
         title: String,
         pngSticker: FileInput? = null,
@@ -3875,7 +3875,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun addStickerToSet(
-        userId: Int,
+        userId: Long,
         name: String,
         pngSticker: FileInput? = null,
         tgsSticker: FileInput? = null,
@@ -4011,7 +4011,7 @@ public final class Bot
      */
     public final suspend fun setStickerSetThumb(
         name: String,
-        userId: Int,
+        userId: Long,
         thumb: FileInput? = null,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
@@ -4215,7 +4215,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun sendInvoice(
-        chatId: Int,
+        chatId: Long,
         title: String,
         description: String,
         payload: String,
@@ -4411,7 +4411,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun setPassportDataErrors(
-        userId: Int,
+        userId: Long,
         errors: List<PassportElementError>,
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
@@ -4459,7 +4459,7 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun sendGame(
-        chatId: Int,
+        chatId: Long,
         gameShortName: String,
         disableNotification: Boolean? = null,
         replyToMessageId: Int? = null,
@@ -4515,8 +4515,8 @@ public final class Bot
     current score in the chat and force is :obj:`False`.
      */
     public final suspend fun setGameScore(
-        userId: Int,
-        chatId: Int? = null,
+        userId: Long,
+        chatId: Long? = null,
         messageId: Int? = null,
         inlineMessageId: Int? = null,
         score: Int,
@@ -4572,8 +4572,8 @@ public final class Bot
     :class:`telegram.error.TelegramError`
      */
     public final suspend fun getGameHighScores(
-        userId: Int,
-        chatId: Int? = null,
+        userId: Long,
+        chatId: Long? = null,
         messageId: Int? = null,
         inlineMessageId: Int? = null,
         timeOut: Float = 0.0f,

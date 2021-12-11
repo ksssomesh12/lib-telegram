@@ -1,10 +1,8 @@
 package io.ktln.lib.telegram
 
-public final enum class PayloadDataKey
-    (
+public final enum class PayloadDataKey(
     public val value: String
-    )
-{
+    ) {
     Action("action"),
     Address("address"),
     Animation("animation"),

@@ -1,7 +1,6 @@
 package io.ktln.lib.telegram
 
-public final class ChatMember
-    (
-    )
-{
+public abstract class ChatMember(
+    ) {
+    public open class Data()
 }

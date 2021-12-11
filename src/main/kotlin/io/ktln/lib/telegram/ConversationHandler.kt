@@ -1,7 +1,5 @@
 package io.ktln.lib.telegram
 
-public final class ConversationHandler
-    (
-    )
-{
+public final class ConversationHandler(
+    ) {
 }

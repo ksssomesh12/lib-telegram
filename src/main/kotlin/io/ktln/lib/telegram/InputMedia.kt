@@ -1,7 +1,6 @@
 package io.ktln.lib.telegram
 
-public final class InputMedia
-    (
-    )
-{
+public abstract class InputMedia(
+    ) {
+    public open class Data()
 }

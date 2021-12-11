@@ -1,12 +1,46 @@
 package io.ktln.lib.telegram
 
-public final class User
-    (
+public final class User(
     private val bot: Bot,
-    private val data: UserData
-    )
-{
-    public final fun getData(): UserData = data
+    private val data: Data
+    ) {
+    public final data class Data
+        (
+        public val id: Long,
+        public val isBot: Boolean,
+        public val firstName: String,
+        public val lastName: String? = null,
+        public val username: String? = null,
+        public val languageCode: LanguageCode? = null,
+        public val canJoinGroups: Boolean? = null,
+        public val canReadAllGroupMessages: Boolean? = null,
+        public val supportsInlineQueries: Boolean? = null
+        )
+
+    public final companion object Static
+    {
+        public final fun fromDataMap(
+            bot: Bot,
+            dataMap: Map<String, Any>
+        ): User {
+            return User(
+                bot = bot,
+                data = dataMap.toDataClass()
+            )
+        }
+
+        public final fun fromJsonString(
+            bot: Bot,
+            jsonString: String
+        ): User {
+            return fromDataMap(
+                bot = bot,
+                dataMap = jsonString.toMap()
+            )
+        }
+    }
+
+    public final fun getData(): Data = data
 
     private final fun getFullName(): String = if (data.lastName != null) "${data.firstName} ${data.lastName}" else data.firstName
 
@@ -911,7 +945,7 @@ public final class User
     :class:`telegram.Message`: On success, instance representing the message posted.
      */
     public final suspend fun sendCopy(
-        fromChatId: Int,
+        fromChatId: Long,
         messageId: Int,
         caption: String? = null,
         parseMode: ParseMode? = null,
@@ -950,7 +984,7 @@ public final class User
     :class:`telegram.Message`: On success, instance representing the message posted.
      */
     public final suspend fun copyMessage(
-        chatId: Int,
+        chatId: Long,
         messageId: Int,
         caption: String? = null,
         parseMode: ParseMode? = null,

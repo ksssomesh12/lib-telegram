@@ -5,10 +5,10 @@ public final class OrderInfo(
     private val data: Data
     ) {
     public final data class Data(
-        public val name: String?,
-        public val phoneNumber: String?,
-        public val email: String?,
-        public val shippingAddress: ShippingAddress.Data?
+        public val name: String? = null,
+        public val phoneNumber: String? = null,
+        public val email: String? = null,
+        public val shippingAddress: ShippingAddress.Data? = null
     )
 
     public final companion object Static {

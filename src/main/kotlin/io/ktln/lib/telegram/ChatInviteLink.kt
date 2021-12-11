@@ -10,10 +10,10 @@ public final class ChatInviteLink(
         public val createsJoinRequest: Boolean,
         public val isPrimary: Boolean,
         public val isRevoked: Boolean,
-        public val name: String?,
-        public val expireDate: Int?,
-        public val memberLimit: Int?,
-        public val pendingJoinRequestCount: Int?
+        public val name: String? = null,
+        public val expireDate: Int? = null,
+        public val memberLimit: Int? = null,
+        public val pendingJoinRequestCount: Int? = null
     )
 
     public final companion object Static {

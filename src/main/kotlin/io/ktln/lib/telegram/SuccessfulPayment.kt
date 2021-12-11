@@ -8,8 +8,8 @@ public final class SuccessfulPayment(
         public val currency: String,
         public val totalAmount: Int,
         public val invoicePayload: String,
-        public val shippingOptionId: String?,
-        public val orderInfo: OrderInfo.Data?,
+        public val shippingOptionId: String? = null,
+        public val orderInfo: OrderInfo.Data? = null,
         public val telegramPaymentChargeId: String,
         public val providerPaymentChargeId: String
     )

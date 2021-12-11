@@ -8,9 +8,9 @@ public final class Game(
         public val title: String,
         public val description: String,
         public val photo: List<PhotoSize.Data>,
-        public val text: String?,
-        public val textEntities: List<MessageEntity.Data>?,
-        public val animation: Animation.Data?
+        public val text: String? = null,
+        public val textEntities: List<MessageEntity.Data>? = null,
+        public val animation: Animation.Data? = null
     )
 
     public final companion object Static {

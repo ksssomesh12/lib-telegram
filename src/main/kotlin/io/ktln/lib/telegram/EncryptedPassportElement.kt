@@ -6,14 +6,14 @@ public final class EncryptedPassportElement(
     ) {
     public final data class Data(
         public val type: String,
-        public val data: String?,
-        public val phoneNumber: String?,
-        public val email: String?,
-        public val files: List<PassportFile.Data>?,
-        public val frontSide: PassportFile.Data?,
-        public val reverseSide: PassportFile.Data?,
-        public val selfie: PassportFile.Data?,
-        public val translation: List<PassportFile.Data>?,
+        public val data: String? = null,
+        public val phoneNumber: String? = null,
+        public val email: String? = null,
+        public val files: List<PassportFile.Data>? = null,
+        public val frontSide: PassportFile.Data? = null,
+        public val reverseSide: PassportFile.Data? = null,
+        public val selfie: PassportFile.Data? = null,
+        public val translation: List<PassportFile.Data>? = null,
         public val hash: String
     )
 

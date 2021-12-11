@@ -10,11 +10,11 @@ public final class Sticker(
         public val width: Int,
         public val height: Int,
         public val isAnimated: Boolean,
-        public val thumb: PhotoSize.Data?,
-        public val emoji: String?,
-        public val setName: String?,
-        public val maskPosition: MaskPosition.Data?,
-        public val fileSize: Int?
+        public val thumb: PhotoSize.Data? = null,
+        public val emoji: String? = null,
+        public val setName: String? = null,
+        public val maskPosition: MaskPosition.Data? = null,
+        public val fileSize: Int? = null
     )
 
     public final companion object Static {

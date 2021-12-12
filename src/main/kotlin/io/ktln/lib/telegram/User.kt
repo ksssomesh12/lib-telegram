@@ -44,14 +44,6 @@ public final class User(
 
     private final fun getFullName(): String = if (data.lastName != null) "${data.firstName} ${data.lastName}" else data.firstName
 
-    /**
-    Shortcut for::
-
-    bot.get_user_profile_photos(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see
-    :meth:`telegram.Bot.get_user_profile_photos`.
-     */
     public final suspend fun getProfilePhotos(
         offset: Int? = null,
         limit: Int = 100,
@@ -67,61 +59,24 @@ public final class User(
         )
     }
 
-    /**
-    Args:
-    name (:obj:`str`): The name used as a link for the user. Defaults to :attr:`full_name`.
-
-    Returns:
-    :obj:`str`: The inline mention for the user as HTML.
-     */
     public final fun mentionHtml(
         name: String = getFullName()
     ): String {
         TODO("Not Yet Implemented !")
     }
 
-    /**
-    Note:
-    :attr:`telegram.ParseMode.MARKDOWN` is a legacy mode, retained by Telegram for
-    backward compatibility. You should use :meth:`mention_markdown_v2` instead.
-
-    Args:
-    name (:obj:`str`): The name used as a link for the user. Defaults to :attr:`full_name`.
-
-    Returns:
-    :obj:`str`: The inline mention for the user as markdown (version 1).
-     */
     public final fun mentionMarkdown(
         name: String = getFullName()
     ): String {
         TODO("Not Yet Implemented !")
     }
 
-    /**
-    Args:
-    name (:obj:`str`): The name used as a link for the user. Defaults to :attr:`full_name`.
-
-    Returns:
-    :obj:`str`: The inline mention for the user as markdown (version 2).
-     */
     public final fun mentionMarkdownV2(
         name: String = getFullName()
     ): String {
         TODO("Not Yet Implemented !")
     }
 
-    /**
-    Shortcut for::
-
-    bot.pin_chat_message(chat_id=update.effective_user.id,
-     *args,
-     **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.pin_chat_message`.
-
-    Returns:
-    :obj:`bool`: On success, :obj:`True` is returned.
-     */
     public final suspend fun pinMessage(
         messageId: Int,
         disableNotification: Boolean = false,
@@ -137,18 +92,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.unpin_chat_message(chat_id=update.effective_user.id,
-     *args,
-     **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.unpin_chat_message`.
-
-    Returns:
-    :obj:`bool`: On success, :obj:`True` is returned.
-     */
     public final suspend fun unpinMessage(
         messageId: Int? = null,
         timeOut: Float = 0.0f,
@@ -162,19 +105,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.unpin_all_chat_messages(chat_id=update.effective_user.id,
-     *args,
-     **kwargs)
-
-    For the documentation of the arguments, please see
-    :meth:`telegram.Bot.unpin_all_chat_messages`.
-
-    Returns:
-    :obj:`bool`: On success, :obj:`True` is returned.
-     */
     public final suspend fun unpinAllMessages(
         timeOut: Float = 0.0f,
         apiKwArgs: Map<String, String?>? = null
@@ -186,16 +116,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.send_message(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.send_message`.
-
-    Returns:
-    :class:`telegram.Message`: On success, instance representing the message posted.
-     */
     public final suspend fun sendMessage(
         text: String,
         parseMode: ParseMode? = null,
@@ -223,16 +143,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.send_photo(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.send_photo`.
-
-    Returns:
-    :class:`telegram.Message`: On success, instance representing the message posted.
-     */
     public final suspend fun sendPhoto(
         photo: FileInput,
         caption: String? = null,
@@ -262,16 +172,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.send_media_group(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.send_media_group`.
-
-    Returns:
-    List[:class:`telegram.Message`:] On success, instance representing the message posted.
-     */
     public final suspend fun sendMediaGroup(
         media: List<InputMedia>,
         disableNotification: Boolean = false,
@@ -291,16 +191,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.send_audio(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.send_audio`.
-
-    Returns:
-    :class:`telegram.Message`: On success, instance representing the message posted.
-     */
     public final suspend fun sendAudio(
         audio: FileInput,
         caption: String? = null,
@@ -338,16 +228,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.send_chat_action(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.send_chat_action`.
-
-    Returns:
-    :obj:`True`: On success.
-     */
     public final suspend fun sendAction(
         action: String,
         timeOut: Float = 0.0f,
@@ -361,16 +241,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.send_contact(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.send_contact`.
-
-    Returns:
-    :class:`telegram.Message`: On success, instance representing the message posted.
-     */
     public final suspend fun sendContact(
         phoneNumber: String,
         firstName: String,
@@ -400,16 +270,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.send_dice(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.send_dice`.
-
-    Returns:
-    :class:`telegram.Message`: On success, instance representing the message posted.
-     */
     public final suspend fun sendDice(
         emoji: String? = null,
         disableNotification: Boolean = false,
@@ -431,16 +291,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.send_document(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.send_document`.
-
-    Returns:
-    :class:`telegram.Message`: On success, instance representing the message posted.
-     */
     public final suspend fun sendDocument(
         document: FileInput,
         thumb: FileInput? = null,
@@ -474,16 +324,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.send_game(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.send_game`.
-
-    Returns:
-    :class:`telegram.Message`: On success, instance representing the message posted.
-     */
     public final suspend fun sendGame(
         gameShortName: String,
         disableNotification: Boolean = false,
@@ -505,24 +345,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.send_invoice(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.send_invoice`.
-
-    Warning:
-    As of API 5.2 :attr:`start_parameter` is an optional argument and therefore the order
-    of the arguments had to be changed. Use keyword arguments to make sure that the
-    arguments are passed correctly.
-
-    .. versionchanged:: 13.5
-    As of Bot API 5.2, the parameter :attr:`start_parameter` is optional.
-
-    Returns:
-    :class:`telegram.Message`: On success, instance representing the message posted.
-     */
     public final suspend fun sendInvoice(
         title: String,
         description: String,
@@ -584,16 +406,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.send_location(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.send_location`.
-
-    Returns:
-    :class:`telegram.Message`: On success, instance representing the message posted.
-     */
     public final suspend fun sendLocation(
         latitude: Float? = null,
         longitude: Float? = null,
@@ -627,16 +439,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.send_animation(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.send_animation`.
-
-    Returns:
-    :class:`telegram.Message`: On success, instance representing the message posted.
-     */
     public final suspend fun sendAnimation(
         animation: FileInput,
         duration: Int? = null,
@@ -674,16 +476,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.send_sticker(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.send_sticker`.
-
-    Returns:
-    :class:`telegram.Message`: On success, instance representing the message posted.
-     */
     public final suspend fun sendSticker(
         sticker: FileInput,
         timeOut: Float = 0.0f,
@@ -705,16 +497,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.send_video(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.send_video`.
-
-    Returns:
-    :class:`telegram.Message`: On success, instance representing the message posted.
-     */
     public final suspend fun sendVideo(
         video: FileInput,
         duration: Int? = null,
@@ -754,16 +536,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.send_venue(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.send_venue`.
-
-    Returns:
-    :class:`telegram.Message`: On success, instance representing the message posted.
-     */
     public final suspend fun sendVenue(
         latitude: Float? = null,
         longitude: Float? = null,
@@ -801,16 +573,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.send_video_note(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.send_video_note`.
-
-    Returns:
-    :class:`telegram.Message`: On success, instance representing the message posted.
-     */
     public final suspend fun sendVideoNote(
         videoNote: FileInput,
         duration: Int? = null,
@@ -840,16 +602,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.send_voice(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.send_voice`.
-
-    Returns:
-    :class:`telegram.Message`: On success, instance representing the message posted.
-     */
     public final suspend fun sendVoice(
         voice: FileInput,
         duration: Int? = null,
@@ -881,16 +633,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.send_poll(update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.send_poll`.
-
-    Returns:
-    :class:`telegram.Message`: On success, instance representing the message posted.
-     */
     public final suspend fun sendPoll(
         question: String,
         options: List<String>,
@@ -934,16 +676,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.copy_message(chat_id=update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.copy_message`.
-
-    Returns:
-    :class:`telegram.Message`: On success, instance representing the message posted.
-     */
     public final suspend fun sendCopy(
         fromChatId: Long,
         messageId: Int,
@@ -973,16 +705,6 @@ public final class User(
         )
     }
 
-    /**
-    Shortcut for::
-
-    bot.copy_message(from_chat_id=update.effective_user.id, *args, **kwargs)
-
-    For the documentation of the arguments, please see :meth:`telegram.Bot.copy_message`.
-
-    Returns:
-    :class:`telegram.Message`: On success, instance representing the message posted.
-     */
     public final suspend fun copyMessage(
         chatId: Long,
         messageId: Int,

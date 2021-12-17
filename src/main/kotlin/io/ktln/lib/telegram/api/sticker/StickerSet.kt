@@ -1,7 +1,7 @@
 package io.ktln.lib.telegram.api.sticker
 
 import io.ktln.lib.telegram.api.PhotoSize
-import io.ktln.lib.telegram.extension.Bot
+import io.ktln.lib.telegram.ext.Bot
 import io.ktln.lib.telegram.internal.toDataClass
 
 public final data class StickerSet(

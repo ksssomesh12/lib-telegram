@@ -1,6 +1,6 @@
 package io.ktln.lib.telegram.api
 
-import io.ktln.lib.telegram.extension.Bot
+import io.ktln.lib.telegram.ext.Bot
 import io.ktln.lib.telegram.api.inline.ChosenInlineResult
 import io.ktln.lib.telegram.api.inline.InlineQuery
 import io.ktln.lib.telegram.api.payment.PreCheckoutQuery

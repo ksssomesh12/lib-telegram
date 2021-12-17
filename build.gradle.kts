@@ -2,13 +2,18 @@ group = "io.ktln.lib"
 version = "0.0.1-CANARY"
 
 plugins {
-    kotlin("jvm") version "1.5.31"
+    application
+    kotlin("jvm") version "1.6.10"
     `maven-publish`
 }
 
 repositories {
     mavenCentral()
     mavenLocal()
+}
+
+application {
+    mainClass.set("io.ktln.lib.telegram.MainKt")
 }
 
 kotlin {
@@ -22,6 +27,8 @@ kotlin {
         implementation("io.ktor:ktor-client-logging:${ktorVersion}")
 
         implementation("ch.qos.logback:logback-classic:1.2.3")
+
+        testImplementation(kotlin("test"))
     }
     java {
         toolchain {
@@ -42,6 +49,9 @@ kotlin {
         }
     }
     tasks {
+        test {
+            useJUnitPlatform()
+        }
         wrapper {
             gradleVersion = "7.3.1"
             distributionType = Wrapper.DistributionType.ALL

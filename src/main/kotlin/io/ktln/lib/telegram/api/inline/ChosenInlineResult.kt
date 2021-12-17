@@ -2,7 +2,7 @@ package io.ktln.lib.telegram.api.inline
 
 import io.ktln.lib.telegram.api.Location
 import io.ktln.lib.telegram.api.User
-import io.ktln.lib.telegram.extension.Bot
+import io.ktln.lib.telegram.ext.Bot
 import io.ktln.lib.telegram.internal.toDataClass
 
 public final data class ChosenInlineResult(

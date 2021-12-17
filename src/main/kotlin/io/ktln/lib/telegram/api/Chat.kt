@@ -3,11 +3,9 @@ package io.ktln.lib.telegram.api
 import io.ktln.lib.telegram.api.file.FileInput
 import io.ktln.lib.telegram.api.file.InputMedia
 import io.ktln.lib.telegram.api.payment.LabeledPrice
-import io.ktln.lib.telegram.enums.EndPoint
 import io.ktln.lib.telegram.enums.ParseMode
-import io.ktln.lib.telegram.enums.PayloadDataKey
-import io.ktln.lib.telegram.extension.Bot
-import io.ktln.lib.telegram.extension.ReplyMarkup
+import io.ktln.lib.telegram.ext.Bot
+import io.ktln.lib.telegram.ext.ReplyMarkup
 import io.ktln.lib.telegram.internal.toDataClass
 
 public final data class Chat(

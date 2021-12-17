@@ -9,7 +9,7 @@ val regexCamelCase = "(?<=[a-zA-Z])[A-Z]".toRegex()
 val regexSnakeCase = "_[a-zA-Z]".toRegex()
 
 /**
- Convert a String from camel case to snake case
+Convert a String from camel case to snake case
  */
 fun String.camelToSnakeCase(): String {
     return regexCamelCase.replace(this) {
@@ -18,7 +18,7 @@ fun String.camelToSnakeCase(): String {
 }
 
 /**
- Convert a String from snake case to camel case
+Convert a String from snake case to camel case
  */
 fun String.snakeToCamelCase(): String {
     return regexSnakeCase.replace(this) {
@@ -29,7 +29,7 @@ fun String.snakeToCamelCase(): String {
 }
 
 /**
- Convert a String (JSON formatted) to a Map
+Convert a String (JSON formatted) to a Map
  */
 fun String.toMap(): Map<String, Any> {
     return gson.fromJson(this, object : TypeToken<Map<String, Any>>() {}.type)
@@ -47,7 +47,7 @@ fun List<Map<String, Any>>.convertKeysToCamelCaseRecursively(): List<Map<String,
 }
 
 /**
- Convert keys in a Map to camel case
+Convert keys in a Map to camel case
  */
 fun Map<String, Any>.convertKeysToCamelCase(): Map<String, Any> {
     return this.mapKeys { it.key.snakeToCamelCase() }
@@ -66,7 +66,7 @@ fun Map<String, Any>.convertKeysToCamelCaseRecursively(): Map<String, Any> {
 }
 
 /**
- Convert keys in a Map to snake case
+Convert keys in a Map to snake case
  */
 fun Map<String, Any>.convertKeysToSnakeCase(): Map<String, Any> {
     return this.mapKeys { it.key.camelToSnakeCase() }
@@ -85,21 +85,21 @@ fun Map<String, Any>.convertKeysToSnakeCaseRecursively(): Map<String, Any> {
 }
 
 /**
- Convert a Map to a Data Class
+Convert a Map to a Data Class
  */
 inline fun <reified T> Map<String, Any>.toDataClass(): T {
     return convert()
 }
 
 /**
- Convert a Data Class to a Map
+Convert a Data Class to a Map
  */
 fun <T> T.toMap(): Map<String, Any> {
     return convert()
 }
 
 /**
- Convert an Object of type I to type O
+Convert an Object of type I to type O
  */
 inline fun <I, reified O> I.convert(): O {
     return gson.fromJson(gson.toJson(this), object : TypeToken<O>() {}.type)

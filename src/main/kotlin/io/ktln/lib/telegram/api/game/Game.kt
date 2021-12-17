@@ -2,7 +2,7 @@ package io.ktln.lib.telegram.api.game
 
 import io.ktln.lib.telegram.api.MessageEntity
 import io.ktln.lib.telegram.api.PhotoSize
-import io.ktln.lib.telegram.extension.Bot
+import io.ktln.lib.telegram.ext.Bot
 import io.ktln.lib.telegram.api.file.Animation
 import io.ktln.lib.telegram.internal.toDataClass
 

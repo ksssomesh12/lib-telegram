@@ -1,6 +1,6 @@
 package io.ktln.lib.telegram.api.passport
 
-import io.ktln.lib.telegram.extension.Bot
+import io.ktln.lib.telegram.ext.Bot
 import io.ktln.lib.telegram.internal.toDataClass
 
 public final data class EncryptedCredentials(

@@ -1,4 +1,4 @@
-package io.ktln.lib.telegram.extension
+package io.ktln.lib.telegram.ext
 
 import io.ktln.lib.telegram.internal.toDataClass
 

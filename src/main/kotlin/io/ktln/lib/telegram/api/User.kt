@@ -39,7 +39,11 @@ public final data class User(
         }
     }
 
-    private final fun getFullName(): String = if (lastName != null) "$firstName $lastName" else firstName
+    public final fun getFullName(): String = if (lastName is String) "$firstName $lastName" else firstName
+
+    public final fun getLink(): String = if (username is String) "https://t.me/$username" else ""
+
+    public final fun getName(): String = if (username is String) "@$username" else getFullName()
 
     public final suspend fun getProfilePhotos(
         offset: Int? = null,
@@ -53,6 +57,15 @@ public final data class User(
             limit = limit,
             timeOut = timeOut,
             apiKwArgs = apiKwArgs
+        )
+    }
+
+    public final fun mentionButton(
+        name: String = getFullName()
+    ): InlineKeyboardButton {
+        return InlineKeyboardButton(
+            text = name,
+            url = "tg://user?id=$id"
         )
     }
 

@@ -3,6 +3,7 @@ package io.ktln.lib.telegram.api.inline
 import io.ktln.lib.telegram.api.Location
 import io.ktln.lib.telegram.ext.Bot
 import io.ktln.lib.telegram.api.User
+import io.ktln.lib.telegram.api.inline.result.InlineQueryResult
 import io.ktln.lib.telegram.internal.toDataClass
 
 public final data class InlineQuery(
@@ -30,5 +31,32 @@ public final data class InlineQuery(
         ): InlineQuery {
             return dataMap.toDataClass()
         }
+    }
+
+    public final suspend fun answerInlineQuery(
+        results: List<InlineQueryResult>,
+        cacheTime: Int = 300,
+        isPersonal: Boolean? = null,
+        nextOffset: String? = null,
+        switchPmText: String? = null,
+        switchPmParameter: String? = null,
+        currentOffset: String? = null,
+        timeOut: Float? = null,
+        apiKwArgs: Map<String, String?>? = null,
+        autoPagination: Boolean = false
+    ): Boolean {
+        if (autoPagination and (currentOffset is String)) throw Exception("ValueError !")
+        return bot.answerInlineQuery(
+            inlineQueryId = id,
+            results = results,
+            cacheTime = cacheTime,
+            isPersonal = isPersonal,
+            nextOffset = nextOffset,
+            switchPmText = switchPmText,
+            switchPmParameter = switchPmParameter,
+            currentOffset = if (autoPagination) offset else currentOffset,
+            timeOut = timeOut,
+            apiKwArgs = apiKwArgs
+        )
     }
 }

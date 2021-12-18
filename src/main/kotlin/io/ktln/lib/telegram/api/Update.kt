@@ -52,4 +52,49 @@ public final data class Update(
             return updateList.toList()
         }
     }
+
+    public final fun effectiveChat(
+    ): Chat? {
+        return when {
+            message is Message -> message.chat
+            editedMessage is Message -> editedMessage.chat
+            channelPost is Message -> channelPost.chat
+            editedChannelPost is Message -> editedChannelPost.chat
+            callbackQuery?.message is Message -> callbackQuery.message.chat
+            myChatMember is ChatMemberUpdated -> myChatMember.chat
+            chatMember is ChatMemberUpdated -> chatMember.chat
+            chatJoinRequest is ChatJoinRequest -> chatJoinRequest.chat
+            else -> null
+        }
+    }
+
+    public final fun effectiveMessage(
+    ): Message? {
+        return when {
+            message is Message -> message
+            editedMessage is Message -> editedMessage
+            channelPost is Message -> channelPost
+            editedChannelPost is Message -> editedChannelPost
+            callbackQuery?.message is Message -> callbackQuery.message
+            else -> null
+        }
+    }
+
+    public final fun effectiveUser(
+    ): User? {
+        return when {
+            message is Message -> message.from
+            editedMessage is Message -> editedMessage.from
+            inlineQuery is InlineQuery -> inlineQuery.from
+            chosenInlineResult is ChosenInlineResult -> chosenInlineResult.from
+            callbackQuery is CallbackQuery -> callbackQuery.from
+            shippingQuery is ShippingQuery -> shippingQuery.from
+            preCheckoutQuery is PreCheckoutQuery -> preCheckoutQuery.from
+            pollAnswer is PollAnswer -> pollAnswer.user
+            myChatMember is ChatMemberUpdated -> myChatMember.from
+            chatMember is ChatMemberUpdated -> chatMember.from
+            chatJoinRequest is ChatJoinRequest -> chatJoinRequest.from
+            else -> null
+        }
+    }
 }

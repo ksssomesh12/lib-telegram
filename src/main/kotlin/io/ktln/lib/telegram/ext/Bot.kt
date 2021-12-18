@@ -8,7 +8,7 @@ import io.ktln.lib.telegram.api.file.File
 import io.ktln.lib.telegram.api.file.FileInput
 import io.ktln.lib.telegram.api.file.InputMedia
 import io.ktln.lib.telegram.api.game.GameHighScore
-import io.ktln.lib.telegram.api.inline.InlineQueryResult
+import io.ktln.lib.telegram.api.inline.result.InlineQueryResult
 import io.ktln.lib.telegram.api.passport.error.PassportElementError
 import io.ktln.lib.telegram.api.payment.LabeledPrice
 import io.ktln.lib.telegram.api.payment.ShippingOption
